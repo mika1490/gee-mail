@@ -1,18 +1,72 @@
+<!DOCTYPE html>
 <html>
 	<head>
+        <script
+  src="https://code.jquery.com/jquery-3.2.1.js"
+  integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE="
+  crossorigin="anonymous"></script>
 		<script src="js/mail-generator.js"></script>
 		<link href="css/style.css" rel="stylesheet" media="screen">
     <script>
+    	var toggle = function(index) { 
+            var emailBody = $("#item" + index);
+
+    		if (emailBody.is(':hidden')) {
+                emailBody.show();
+            }
+    		else {
+                emailBody.hide(); 
+            }
+        }
+
+    var displayEmails = function() {
+        var mailContent = "";
+        for (var i = 0; i < window.geemails.length; i++)  {
+            mailContent += "<span id=\"button\"" 
+                    + 'class="row"'
+                    + "onclick=\"toggle(" + i + ")\">"
+                    + window.geemails[i].date + ", " 
+                    + window.geemails[i].subject + ", " 
+                    + window.geemails[i].sender 
+                    + "</span><div id=\"item" + i + "\"" 
+                    + "style=\"display: none\">" 
+                    + window.geemails[i].body 
+                    + "</div><br/>";
+        }
+
+        document.getElementById("mailContent").innerHTML = mailContent;
+        document.getElementById("inboxCount").innerHTML = "(" + window.geemails.length + ")";
+    }
+
+
       window.onload = function(){
-        // ALL OF YOUR JAVASCRIPT CODE SHOULD GO HERE. 
-        // We have to use window.onload so your JavaScript doesn't execute until the page has loaded and all HTML has been downloaded to your browser
-        
+       displayEmails()
       };
+
+      setInterval(function() {
+        geemails.push(getNewMessage())
+        
+        displayEmails();
+      }, 20000);
+
     </script>
 	</head>
 	<body>
 		<div class="container" id="main">
-			Build Me!
+			<p style="font-size: 40px; font-family:Arial; text-align:center">
+			YOU GOT <span style ="color:grey"> MAIL </span>
+		</p>
 		</div>
+
+        <div style="color:grey; font-size: 30px; font-family:Arial">
+        INBOX
+        </div>
+    
+        
+        <div id="inboxCount" style="font-size: 30px; font-family:Arial"> </div>
+        <div id="mailContent" style="font-size: 20px; font-family:Arial">
+        <!--October 18th, 3:30PM Subject: <strong>Lets get dinner</strong>--> 
+        </div>
 	</body>
 </html>
+	

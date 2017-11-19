@@ -1,4 +1,4 @@
-# GeeMail 
+# GeeMail Mika's Version
 
 GeeMail is a coding exercise meant to simulate an e-mail web application inbox.
 
